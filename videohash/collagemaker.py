@@ -90,9 +90,10 @@ class MakeCollage:
         self.image_list = image_list
         self.number_of_images = len(self.image_list)
         self.output_path = output_path
-        self.collage_image_width = collage_image_width
 
         self.images_per_row_in_collage = int(round(sqrt(self.number_of_images)))
+        with Image.open(self.image_list[0]) as first_frame_image_in_list:
+            self.collage_image_width = first_frame_image_in_list.size[0] * self.images_per_row_in_collage
 
         if self.number_of_images == 0:
             raise CollageOfZeroFramesError("Can not make a collage of zero images.")
